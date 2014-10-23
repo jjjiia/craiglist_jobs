@@ -39,7 +39,7 @@ def get_latest():
 
 
 #keywords = ["!","!!", "!!!","!!!!","experienced","diverse","innovative","verbal","amazing", "creative","enthusiastic","energy","organized","independently", "detail oriented", "entry level", "team player", "fast paced", "drug test", "friendly", "flexible","passion", "passionate", "estabilished","weekends","weekend", "unique", "energetic", "technology"]
-def download_craigslist(page_count = 1, limit = 5):
+def download_craigslist(page_count = 10, limit = 5):
     data = []
     duplicateCount = 0
     uniqueCount = 0
@@ -99,7 +99,7 @@ def download_craigslist(page_count = 1, limit = 5):
                             print base+l
                             description = str(sidesoup.findAll("section",id="postingbody")[0].text.encode('utf-8',errors='ignore')).lower().strip('\n')
                             outputArray = [area, category, title, postedtime, updatedtime, url, description]
-                            print outputArray
+                            #print outputArray
                             #alreadydownloaded = downloaded.readlines()
                             #print columnsChecked
                             alreadydownloaded =[]
@@ -132,7 +132,7 @@ currentdate = datetime.datetime.now().date()
 #cities = ["columbus","losangeles", "miami", "seattle", 
 #cities = ["phoenix", "houston", "dallas", "washingtondc"]
 
-cities = ["boston","austin","washingtondc","detroit","sfbay","chicago","portland"]
+cities = ["boston","austin","washingtondc","detroit","sfbay","chicago","portland","atlanta","dallas","denver","houston","lasvegas","losangeles","miami","minneapolis","orangecounty","philadelphia","phoenix","raleigh","sacramento","sandiego"]
 for city in cities:
     latest = get_latest()
     print latest
@@ -147,7 +147,7 @@ for city in cities:
     outputfile = open("data/housing/"+city+"/new_"+city+"_"+timestamped_filename+".csv","wb")
     spamwriter = csv.writer(outputfile)
     spamwriter.writerow(["area", "category", "title", "postedtime", "updatedtime", "url","description"])
-    download_craigslist(1, 5)
+    download_craigslist(10, 5)
     outputfile.close()
 
     if latest=="long":
